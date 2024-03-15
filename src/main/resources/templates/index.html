@@ -1,10 +1,237 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Insert title here</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/non-responsive.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
+        blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn,
+        em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var,
+        b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas,
+        details, embed, figure, figcaption, footer, header, hgroup, menu, nav,
+        output, ruby, section, summary, time, mark, audio, video {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+            outline: none;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        html {
+            overflow-y: scroll;
+        }
+        body {
+            background: #e1f4ff; /*
+https://subtlepatterns.com/weave/ */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 62.5%;
+            line-height: 1;
+            color: #585858;
+            padding: 22px 10px;
+            padding-bottom: 55px;
+        }
+        ::selection {
+            background: #5f74a0;
+            color: #fff;
+        }
+        ::-moz-selection {
+            background: #5f74a0;
+            color: #fff;
+        }
+        ::-webkit-selection {
+            background: #5f74a0;
+            color: #fff;
+        }
+        br {
+            display: block;
+            line-height: 1.6em;
+        }
+        article, aside, details, figcaption, figure, footer, header, hgroup,
+        menu, nav, section {
+            display: block;
+        }
+        ol, ul {
+            list-style: none;
+        }
+        input, textarea {
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            outline: none;
+        }
+        blockquote, q {
+            quotes: none;
+        }
+        blockquote:before, blockquote:after, q:before, q:after {
+            content: '';
+            content: none;
+        }
+        strong, b {
+            font-weight: bold;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+        img {
+            border: 0;
+            max-width: 100%;
+        }
+        h1 {
+            font-family: 'Montserrat Alternates', sans-serif;
+            font-weight: 800;
+            font-size: 3.6em;
+            line-height: 1.7em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        /** page structure **/
+        #wrapper {
+            display: block;
+            width: 850px;
+            background: #fff;
+            border-radius: 20px;
+            margin: 0 auto;
+            padding: 10px 17px;
+            -webkit-box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.35);
+        }
+        #keywords {
+            margin: 0 auto;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        #keywords thead {
+            cursor: pointer;
+            background: #c9dff0;
+        }
+        #keywords thead tr th {
+            font-weight: bold;
+            padding: 12px 30px;
+            padding-left: 42px;
+        }
+        #keywords thead tr th span {
+            padding-right: 20px;
+            background-repeat: no-repeat;
+            background-position: 100% 100%;
+
+        }
+        #keywords thead tr th.headerSortUp, #keywords thead tr
+        th.headerSortDown {
+            background: #acc8dd;
+
+        }
+        #keywords thead tr th.headerSortUp span {
+            background-image: url('https://i.imgur.com/SP99ZPJ.png');
+        }
+        #keywords thead tr th.headerSortDown span {
+            background-image: url('https://i.imgur.com/RkA9MBo.png');
+        }
+        #keywords tbody tr {
+            color: #555;
+        }
+        #keywords tbody tr td {
+            text-align: center;
+            padding: 15px 10px;
+        }
+        #keywords tbody tr td.lalign {
+            text-align: left;
+        }
+        a {
+            font-size: 18px;
+            margin-left: 45%;
+            text-decoration: none;
+            color: black;
+        }
+        a:hover {
+            color: rgb(100, 100, 200);
+        }
+        a .button, div .container {
+        }
+        a.button {
+            display: block;
+            float: left;
+            margin: 0px;
+            margin-left: 8px;
+            margin-right: 8px;
+            padding: 8px 8px;
+            border: 1px solid #FFF;
+            border-radius: 8px;
+        }
+        a.red {
+            background: rgb(255, 132, 132);
+            color: #FFF;
+        }
+        a.green {
+            background: rgb(90, 176, 255);
+            color: #FFF;
+        }
+        a.button:hover {
+            border: 2px solid rgba(69, 39, 160, .4);
+        }
+        #cadastrobotao {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #000;
+            transition: background-color 0.3s ease;
+            background-color: #acc8dd;
+        }
+        #cadastrobotao:hover{
+            background-color: #6eacda;
+        }
+    </style>
 </head>
 <body>
-
+<div style="height: 50px;">
+    <a id="cadastrobotao" href="novo">Cadastrar novo livro</a>
+</div>
+<div id="wrapper">
+    <h1>Livraria do Lucena</h1>
+    <table id="keywords" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr id="barraazul">
+            <th><span>Id</span></th>
+            <th><span>Nome</span></th>
+            <th><span>Autor</span></th>
+            <th><span>Quantidade</span></th>
+            <th><span>Preço</span></th>
+            <th><span>Ações</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="livro: ${livros}">
+            <td th:text="${livro.Id}">Id</td>
+            <td class="lalign" th:text="${livro.nome}">Nome</td>
+            <td class="lalign" th:text="${livro.autor}">Autor</td>
+            <td th:text="${livro.quantidade}">Quantidade</td>
+            <td th:text="${livro.preco}">Preco</td>
+            <td>
+                <a th:href="@{'/editar/'+ ${livro.id}}" class="button
+green"><span><i class="fa fa-edit"></i></span></a>
+                <a th:href="@{'/deletar/'+ ${livro.id}}" class="button
+red"><span><i class="fa fa-trash"></i></span></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
